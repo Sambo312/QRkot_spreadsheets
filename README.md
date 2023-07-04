@@ -5,7 +5,7 @@
 Технологии:
 
 ```
-Python 3.9, FastApi 0.78, Sqlalchemy 1.4, Alembic 1.7
+Python 3.9, FastApi 0.78, Sqlalchemy 1.4, Alembic 1.7, AioGoogle 4.2
 ```
 
 ***Чтобы развернуть проект необходимо:***
@@ -13,7 +13,7 @@ Python 3.9, FastApi 0.78, Sqlalchemy 1.4, Alembic 1.7
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```bash
-git clone git@github.com:Sambo312/cat_charity_fund.git
+git clone git@github.com:Sambo312/QRkot_spreadsheets.git
 ```
 
 ```bash
@@ -48,13 +48,27 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Создать файл .env в котором определить переменные с именем приложения, средой выполнения, доступом к БД, а также значение для SECRET_KEY:
+Создать файл .env в котором определить переменные с именем приложения, средой выполнения, доступом к БД, а также значение для SECRET_KEY, данными суперпользователя и подключением к Google Api:
 
 ```
 APP_TITLE=
 APP_DESCRIPTION=
 DATABASE_URL=
 SECRET=
+FIRST_SUPERUSER_EMAIL=superuser@superemail.com
+FIRST_SUPERUSER_PASSWORD=superpuperpassword
+EMAIL=
+TYPE=
+PROJECT_ID=
+PRIVATE_KEY_ID=
+PRIVATE_KEY=
+CLIENT_EMAIL=
+CLIENT_ID=
+AUTH_URI=
+TOKEN_URI=
+AUTH_PROVIDER_X509_CERT_URL=
+CLIENT_X509_CERT_URL=
+UNIVERSE_DOMAIN=
 ```
 
 Инициировать `alembic`:
