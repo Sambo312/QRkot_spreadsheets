@@ -16,13 +16,24 @@ class GoogleApiMethods:
         'role': 'writer',
         'emailAddress': settings.email
     }
-    sheet_settings = {
-        'locale': 'ru_RU',
-        'sheetType': 'GRID',
-        'sheetId': 0,
-        'rowCount': 50,
-        'columnCount': 5,
-        'majorDimension': 'ROWS'
+    spreadsheet_body = {
+        'properties': {
+            'title': 'Отчет сервиса QRkot',
+            'locale': 'ru_RU'
+        },
+        'sheets': [
+            {
+                'properties': {
+                    'sheetType': 'GRID',
+                    'sheetId': 0,
+                    'title': 'Рейтинг проектов по скорости закрытия',
+                    'gridProperties': {
+                        'rowCount': 50,
+                        'columnCount': 5
+                    }
+                }
+            }
+        ]
     }
 
     def now(self):
@@ -33,27 +44,8 @@ class GoogleApiMethods:
             self.api['sheets'][0],
             self.api['sheets'][1]
         )
-        spreadsheet_body = {
-            'properties': {
-                'title': f'Отчет сервиса QRkot на {self.now()}',
-                'locale': self.sheet_settings['locale']
-            },
-            'sheets': [
-                {
-                    'properties': {
-                        'sheetType': self.sheet_settings['sheetType'],
-                        'sheetId': self.sheet_settings['sheetId'],
-                        'title': 'Рейтинг проектов по скорости закрытия',
-                        'gridProperties': {
-                            'rowCount': self.sheet_settings['rowCount'],
-                            'columnCount': self.sheet_settings['columnCount']
-                        }
-                    }
-                }
-            ]
-        }
         response = await wrapper_services.as_service_account(
-            service.spreadsheets.create(json=spreadsheet_body)
+            service.spreadsheets.create(json=self.spreadsheet_body)
         )
         return response['spreadsheetId']
 
@@ -96,7 +88,7 @@ class GoogleApiMethods:
                 project['description']
             )
         update_body = {
-            'majorDimension': self.sheet_settings['majorDimension'],
+            'majorDimension': 'ROWS',
             'values': table_values
         }
         await wrapper_services.as_service_account(
